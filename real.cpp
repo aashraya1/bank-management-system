@@ -4,7 +4,8 @@
 #include <stdlib.h>
 
 struct data{
-	int amt,id,phone;
+	int amt,id;
+	char phone[20];
 	char name[50];
 }s[100];
 
@@ -64,10 +65,11 @@ void loan(){
 	printf("How many record do you want to enter? \n");
 	scanf("%d",&n);
 	f = fopen("Loan.txt","a");
-		printf("Enter the record of the person taking a loan:ID, Name, amount, phone number \n");
+	
 		for(i=1;i<=n;i++){
-			scanf("%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone);
-			fprintf(f,"%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			printf("Enter the record of the person taking a loan:ID, First name, amount, phone number. Press enter after every entry.\n");
+			scanf("%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone);
+			fprintf(f,"%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 		}
 		fclose(f);
 }
@@ -83,8 +85,8 @@ void deposit(){
 		printf("Enter the record of the person making the deposit:ID, Name, amount, phone number \n");
 		
 	for(i=1;i<=n;i++){
-			scanf("%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone);
-			fprintf(fp,"%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			scanf("%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone);
+			fprintf(fp,"%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 		}
 		fclose(fp);
 }
@@ -99,9 +101,9 @@ void view(){
 		a=fopen("Loan.txt","r");
 		printf("Enter the ID of the person that you want to view \n");
 	scanf("%d",&d);
-	while(fscanf(a,"%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
+	while(fscanf(a,"%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
 		if(s[i].id==d){
-			printf("%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			printf("%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 		}
 	}
 	fclose(a);
@@ -111,9 +113,9 @@ void view(){
 		a=fopen("Deposit.txt","r");
 			printf("Enter the ID of the person that you want to view \n");
 	scanf("%d",&d);
-	while(fscanf(a,"%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
+	while(fscanf(a,"%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
 		if(s[i].id==d){
-			printf("%d %s %d %d",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			printf("%d %s %d %s",s[i].id,s[i].name,s[i].amt,s[i].phone);
 		}
 	}
 	fclose(a);
@@ -133,10 +135,10 @@ void del(){
 	b=fopen("Loan.txt","r");
 		printf("Enter the ID of the person that you want to remove \n");
 	scanf("%d",&r);	
-	while(fscanf(b,"%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
+	while(fscanf(b,"%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
 		if(s[i].id!=r){
 			c=fopen("temp.txt","a");
-			fprintf(c,"%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			fprintf(c,"%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 			fclose(c);
 		}
 	}
@@ -149,10 +151,10 @@ void del(){
 	b=fopen("Deposit.txt","r");
 			printf("Enter the ID of the person that you want to remove \n");
 	scanf("%d",&r);
-	while(fscanf(b,"%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
+	while(fscanf(b,"%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
 		if(s[i].id!=r){
 			c=fopen("ct.txt","a");
-			fprintf(c,"%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			fprintf(c,"%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 			fclose(c);
 		}
 	}
@@ -176,17 +178,17 @@ void edit(){
 	b=fopen("Loan.txt","r");
 		printf("Enter the ID of the person that you want to edit \n");
 	scanf("%d",&r);	
-	while(fscanf(b,"%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
+	while(fscanf(b,"%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
 		if(s[i].id!=r){
 			c=fopen("temp.txt","a");
-			fprintf(c,"%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			fprintf(c,"%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 			fclose(c);
 		}
 		else{
 			printf("Enter new record :ID, Name, Amount, Phone number \n");
-			scanf("%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone);
+			scanf("%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone);
 			c=fopen("temp.txt","a");
-			fprintf(c,"%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			fprintf(c,"%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 			fclose(c);
 		}
 	}
@@ -199,17 +201,17 @@ void edit(){
 	b=fopen("Deposit.txt","r");
 			printf("Enter the ID of the person that you want to remove \n");
 	scanf("%d",&r);
-	while(fscanf(b,"%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
+	while(fscanf(b,"%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone)!=EOF){
 		if(s[i].id!=r){
 			c=fopen("ct.txt","a");
-			fprintf(c,"%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			fprintf(c,"%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 			fclose(c);
 		}
 			else{
 			printf("Enter new record :ID, Name, Amount, Phone number \n");
-			scanf("%d%s%d%d",&s[i].id,s[i].name,&s[i].amt,&s[i].phone);
+			scanf("%d%s%d%s",&s[i].id,s[i].name,&s[i].amt,&s[i].phone);
 			c=fopen("ct.txt","a");
-			fprintf(c,"%d %s %d %d \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
+			fprintf(c,"%d %s %d %s \n",s[i].id,s[i].name,s[i].amt,s[i].phone);
 			fclose(c);
 		}
 		
